@@ -9,14 +9,17 @@ namespace PaymentPlus
         {
 
         }
-        ValidatePaymentsAll()
+        public bool ValidatePaymentsAll()
         {
 
         }
-        RecordOffline()
+        public List<int> RecordOffline()
         {
 
         }
-        ProcessPaymentsAll()
+        public void ProcessPaymentsAll()
+        {
+
+        }
     }
 }
