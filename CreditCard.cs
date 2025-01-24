@@ -11,7 +11,14 @@
             ExpiryDate = expiryDate;
             CVV = cvv;
         }
-        //For credit payments, the minimum is $5.00 if using CAD or USD, but €10.00 with EUR.
+        public abstract string ProcessPayment();
+        public abstract bool ValidatePayment();
+        public abstract string LogPayment();
+
+        public override void Authorize()
+        {
+            base.Authorize();
+        }
 
     }
 }

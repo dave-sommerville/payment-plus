@@ -6,5 +6,18 @@
         {
 
         }
+        public override string ProcessPayment()
+        {
+
+        }
+        public override bool ValidatePayment()
+        {
+
+        }
+        public override string LogPayment()
+        {
+
+        }
+
     }
 }

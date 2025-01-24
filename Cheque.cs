@@ -9,6 +9,10 @@
             ChqNumber = chqNumber;
             BankName = bankName;
         }
+        public abstract string ProcessPayment();
+        public abstract bool ValidatePayment();
+        public abstract string LogPayment();
+
         //For cheque payments in USD or EUR, it can only be in whole - dollar amounts($1.00 /€1.00, $5.00 /€5.00)
 
     }
