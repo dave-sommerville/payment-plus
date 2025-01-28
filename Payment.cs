@@ -1,32 +1,70 @@
-﻿namespace PaymentPlus
-{// Abstract class
+﻿using System.Text.RegularExpressions;
+
+namespace PaymentPlus
+{
     public abstract class Payment
     {
-        public int Amount { get; set; }
-        public string Currency {  get; set; }
+        public double Amount { get; set; }
+        public string Currency { get; set; }
 
-        public Payment(int amount, string currency)
+        public Payment(double amount, string currency)
         {
             Amount = amount;
             Currency = currency;
         }
-        //  Assignmnent specifies abstract method
-        public abstract string ProcessPayment(); // Specifies abstract 
+        public abstract void ProcessPayment();
         public virtual void ValidatePayment()
         {
             if (Amount < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(Amount), "Amount must be greater than zero");
             }
+            if (GetDecimalPlaces(Amount) != 2)
+            {
+                throw new ArgumentOutOfRangeException(nameof(Amount), "Amount must have 2 decimal places");
+            }
+            if (!IsAlphaNum(Amount.ToString()) || !IsAlphaNum(Currency))
+            {
+                throw new ArgumentException("Only letters and numbers permitted");
+            }
             if (string.IsNullOrEmpty(Currency))
             {
-                throw new ArgumentException("Currency must be in CDN, USD, or EUR");    //Make sure to change to lowercase 
-            } else if (Currency != "cdn" && Currency != "usd" && Currency != "eur") {
+                throw new ArgumentException("Currency must be in CDN, USD, or EUR");
+            } else if (Currency.ToLower() != "cdn" && Currency != "usd" && Currency != "eur") {
                 throw new ArgumentException("Currency must be in CDN, USD, or EUR");
             }
         }
         public abstract string LogPayment();
-            //Prints out the details of the payment.You should aim to have this method print out the most accurate details, depending on the class implementation.
-        
-    }        
+        public static int GetDecimalPlaces(double number)
+        {
+            string numberString = number.ToString();
+            if (numberString.Contains("."))
+            {
+                return numberString.Split(".").Length;
+            } else
+            {
+                return 0;
+            }
+        }
+        public static bool EndsWithZero(double number)
+        {
+            double fractionalPart = number % 1;
+            fractionalPart = Math.Round(fractionalPart * 100, 10);
+            return fractionalPart % 100 == 0;
+        }
+        public static bool IsAlphaNum(string input)
+        {
+            return Regex.IsMatch(input, @"^[a-zA-Z0-9]+$");
+        }
+        /*
+                if (int.TryParse(myString, out int result))
+        {
+            Console.WriteLine("The string is a valid integer.");
+        }
+        else
+        {
+            Console.WriteLine("The string is not a valid integer.");
+        }
+*/
+    }
 }

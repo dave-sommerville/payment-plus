@@ -3,9 +3,7 @@
     public class Bitcoin :OnlinePayment
     {
         public string WalletID { get; set; }
-
-        //  Need Wallet ID
-        public Bitcoin(int amount, string currency, string paymentGateway, string walletID) :base(amount, currency, paymentGateway)
+        public Bitcoin(double amount, string currency, string paymentGateway, string walletID) :base(amount, currency, paymentGateway)
         {
             WalletID = walletID;
         }
@@ -13,9 +11,13 @@
         {
 
         }
-        public abstract bool ValidatePayment()
+        public override void ValidatePayment()
         {
-
+            base.ValidatePayment();
+            if (!IsAlphaNum(WalletID))
+            {
+                throw new ArgumentOutOfRangeException(nameof(WalletID), "Wallet must be letters and numbers only.");
+            }
         }
         public abstract string LogPayment()
         {

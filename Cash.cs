@@ -2,22 +2,21 @@
 {
     public class Cash : OfflinePayments
     {
-        public Cash(int amount, string name) : base(amount, name)
+        public Cash(double amount, string currency) : base(amount, currency)
         {
 
         }
-        public override string ProcessPayment()
+        public override void ProcessPayment()
         {
-
-        }
-        public override bool ValidatePayment()
-        {
-
+            Console.Write($"Cash payment of {Amount} {Currency} completed");
         }
         public override string LogPayment()
         {
-
+            return $"Cash payment of {Amount} {Currency} completed";
         }
-
+        public override void RecordPayment()
+        {
+            Console.WriteLine(LogPayment());
+        }
     }
 }

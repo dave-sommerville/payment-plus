@@ -4,16 +4,38 @@
     {
         int ChqNumber { get; set; }
         string BankName { get; set; }
-        public Cheque(int amount, string currency, int chqNumber, string bankName) : base(amount, currency)
+        public Cheque(double amount, string currency, int chqNumber, string bankName) : base(amount, currency)
         {
             ChqNumber = chqNumber;
             BankName = bankName;
         }
-        public abstract string ProcessPayment();
-        public abstract bool ValidatePayment();
-        public abstract string LogPayment();
-
-        //For cheque payments in USD or EUR, it can only be in whole - dollar amounts($1.00 /€1.00, $5.00 /€5.00)
-
+        public override void ProcessPayment()
+        {
+            Console.WriteLine($"Cheque payment of {Amount} {Currency} completed");
+        }
+        public override void ValidatePayment()
+        {
+            base.ValidatePayment();
+            if ( ChqNumber.ToString().Length > 16)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ChqNumber), "Cheque number can't be more than 16 numbers long");
+            }
+            if (ChqNumber > 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ChqNumber), "Cheque number must be a positive number greater than zero");
+            }
+            if (!EndsWithZero(Amount))
+            {
+                throw new ArgumentOutOfRangeException(nameof(Amount), "Cheque payments must be whole dollars (end with 00)");
+            }
+        }
+        public override string LogPayment()
+        {
+            return $"Cheque payment of {Amount} {Currency} completed";
+        }
+        public override void RecordPayment()
+        {
+            Console.WriteLine(LogPayment());
+        }
     }
 }

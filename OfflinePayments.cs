@@ -1,18 +1,21 @@
 ﻿
 namespace PaymentPlus
-{   //  Abstract Class
+{
     public abstract class OfflinePayments :Payment
     {
-        public OfflinePayments(int amount, string currency) : base(amount, currency)
+        public OfflinePayments(double amount, string currency) : base(amount, currency)
         {
 
         }
-        public abstract string ProcessPayment();
-        public abstract bool ValidatePayment();
-        public abstract string LogPayment();
+        public override void ValidatePayment()
+        {
+            base.ValidatePayment();
+            if (Currency.ToLower() == "eur")
+            {
+                throw new ArgumentException("EUR is not acceptable currency for offline payments");
+            }
+        }
 
         public abstract void RecordPayment();
-            //  Abstract method, supposed to be an offline record, only needs to print for assignment 
-            //For offline payments, EUR is not accepted.
     }
 }
