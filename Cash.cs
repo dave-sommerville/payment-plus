@@ -1,6 +1,6 @@
 ﻿namespace PaymentPlus
 {
-    public class Cash : OfflinePayments
+    public class Cash : OfflinePayment
     {
         public Cash(double amount, string currency) : base(amount, currency)
         {
@@ -12,7 +12,7 @@
         }
         public override string LogPayment()
         {
-            return $"Cash payment of {Amount} {Currency} completed";
+            return $"Cash payment of {Amount} {Currency}";
         }
         public override void RecordPayment()
         {

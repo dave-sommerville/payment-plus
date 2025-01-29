@@ -4,26 +4,48 @@ namespace PaymentPlus
 {
     public class PaymentManager
     {
-        //  Or linked or sorted list? 
-        public static List<int> AddPayment(Payment payment)
+        public LinkedList<Payment> PaymentList { get; set; }
+        public PaymentManager(LinkedList<Payment> paymentList)
         {
-            //  Constructs the payments, addds to list
+            PaymentList = paymentList;
         }
-        public static bool ValidatePaymentsAll(List<int> paymentListElement)
+        public void AddPayment(Payment payment)
         {
-            //  Operates Validate method on all list element
+            PaymentList.AddFirst(payment);
         }
-        public static void AuthorizePayements()
+        public void ValidatePaymentsAll()
         {
-
+            foreach (Payment pay in PaymentList)
+            {
+                pay.ValidatePayment();
+            }
         }
-        public static List<int> RecordOffline()
+        public void AuthorizePayements()
         {
-            //  If it can run method on list element, does run method
+            foreach (Payment pay in PaymentList)
+            {
+                if (pay is OnlinePayment a)
+                {
+                    a.Authorize();
+                }
+            }
         }
-        public static void ProcessPaymentsAll()
+        public void RecordOffline()
         {
-            //  Operates Process method on list elements 
+            foreach (Payment pay in PaymentList)
+            {
+                if (pay is OfflinePayment b)
+                {
+                    b.RecordPayment();
+                }
+            }
+        }
+        public void ProcessPaymentsAll()
+        {
+            foreach (Payment pay in PaymentList)
+            {
+                pay.ProcessPayment();
+            }
         }
     }
 }

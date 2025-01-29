@@ -1,6 +1,6 @@
 ﻿namespace PaymentPlus
 {
-    public class Cheque :OfflinePayments
+    public class Cheque :OfflinePayment
     {
         int ChqNumber { get; set; }
         string BankName { get; set; }
@@ -31,7 +31,7 @@
         }
         public override string LogPayment()
         {
-            return $"Cheque payment of {Amount} {Currency} completed";
+            return $"Cheque payment of {Amount} {Currency}. Chq# {ChqNumber} from bank {BankName}";
         }
         public override void RecordPayment()
         {

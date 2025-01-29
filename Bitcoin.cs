@@ -7,9 +7,9 @@
         {
             WalletID = walletID;
         }
-        public abstract string ProcessPayment()
+        public override void ProcessPayment()
         {
-
+            Console.WriteLine($"Bitcoin payment of {Amount} {Currency} completed");
         }
         public override void ValidatePayment()
         {
@@ -19,14 +19,14 @@
                 throw new ArgumentOutOfRangeException(nameof(WalletID), "Wallet must be letters and numbers only.");
             }
         }
-        public abstract string LogPayment()
+        public override string LogPayment()
         {
-
+            return $"Bitcoin payment of {Amount} {Currency} completed. Wallet# {WalletID}";
         }
 
         public override void Authorize()    
         {
-            base.Authorize();
+            Console.WriteLine("Bitcoin payment authorized");
         }
     }
 

@@ -1,9 +1,9 @@
 ﻿
 namespace PaymentPlus
 {
-    public abstract class OfflinePayments :Payment
+    public abstract class OfflinePayment :Payment
     {
-        public OfflinePayments(double amount, string currency) : base(amount, currency)
+        public OfflinePayment(double amount, string currency) : base(amount, currency)
         {
 
         }

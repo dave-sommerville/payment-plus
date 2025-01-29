@@ -11,9 +11,9 @@
             ExpiryDate = expiryDate;
             CVV = cvv;
         }
-        public override string ProcessPayment()
+        public override void ProcessPayment()
         {
-
+            Console.WriteLine($"Credit Card payment of {Amount} {Currency} completed.");
         }
         public override void ValidatePayment()
         {
@@ -37,12 +37,12 @@
         }
         public override string LogPayment()
         {
-
+            return $"Credit Card payment of {Amount} {Currency} completed Credit Card#: {CardNumber}, Expiry Date: {ExpiryDate}, CVV: {CVV}";
         }
 
         public override void Authorize()
         {
-            
+            Console.WriteLine("Credit Card payment authorized");
         }
 
     }
