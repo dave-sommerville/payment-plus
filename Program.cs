@@ -1,16 +1,10 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Transactions;
-using System.Numerics;
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace PaymentPlus
+﻿namespace PaymentPlus
 {
     public class Program
     {
         static void Main(string[] args)
         {
-            // First lets create a payment manager for a new client 
+            // First lets create a Payment Manager for a new client 
 
             PaymentManager newClient = new PaymentManager(new LinkedList<Payment>());
 
