@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace PaymentPlus
+﻿namespace PaymentPlus
 {
     public abstract class Payment
     {
@@ -9,7 +7,7 @@ namespace PaymentPlus
 
         public Payment(double amount, string currency)
         {
-            Amount = amount;
+            Amount = Math.Round(amount, 2);
             Currency = currency;
         }
         public abstract void ProcessPayment();
@@ -19,11 +17,7 @@ namespace PaymentPlus
             {
                 throw new ArgumentOutOfRangeException(nameof(Amount), "Amount must be greater than zero");
             }
-            if (GetDecimalPlaces(Amount) != 2)
-            {
-                throw new ArgumentOutOfRangeException(nameof(Amount), "Amount must have 2 decimal places");
-            }
-            if (!IsAlphaNum(Amount.ToString()) || !IsAlphaNum(Currency))
+            if (!IsAlphaNum(Currency))
             {
                 throw new ArgumentException("Only letters and numbers permitted");
             }
@@ -40,31 +34,18 @@ namespace PaymentPlus
             string numberString = number.ToString();
             if (numberString.Contains("."))
             {
-                return numberString.Split(".").Length;
+                return numberString.Split('.')[1].Length;
             } else
             {
                 return 0;
             }
         }
-        public static bool EndsWithZero(double number)
-        {
-            double fractionalPart = number % 1;
-            fractionalPart = Math.Round(fractionalPart * 100, 10);
-            return fractionalPart % 100 == 0;
-        }
         public static bool IsAlphaNum(string input)
         {
-            return Regex.IsMatch(input, @"^[a-zA-Z0-9]+$");
+            if (string.IsNullOrEmpty(input))
+                return false;
+
+            return input.All(char.IsLetterOrDigit);
         }
-        /*
-                if (int.TryParse(myString, out int result))
-        {
-            Console.WriteLine("The string is a valid integer.");
-        }
-        else
-        {
-            Console.WriteLine("The string is not a valid integer.");
-        }
-*/
     }
 }

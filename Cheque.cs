@@ -20,14 +20,14 @@
             {
                 throw new ArgumentOutOfRangeException(nameof(ChqNumber), "Cheque number can't be more than 16 numbers long");
             }
-            if (ChqNumber > 0)
+            if (ChqNumber < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(ChqNumber), "Cheque number must be a positive number greater than zero");
             }
-            if (!EndsWithZero(Amount))
-            {
-                throw new ArgumentOutOfRangeException(nameof(Amount), "Cheque payments must be whole dollars (end with 00)");
-            }
+            //if (!EndsWithZero(Amount))
+            //{
+            //    throw new ArgumentOutOfRangeException(nameof(Amount), "Cheque payments must be whole dollars (end with 00)");
+            //}
         }
         public override string LogPayment()
         {

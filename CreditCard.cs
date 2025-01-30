@@ -2,10 +2,10 @@
 {
     public class CreditCard :OnlinePayment
     {
-        public int CardNumber { get; set; }
-        public int ExpiryDate { get; set; } 
+        public long CardNumber { get; set; }
+        public string ExpiryDate { get; set; } 
         public int CVV { get; set; }
-        public CreditCard(double amount, string currency, string paymentGateway, int cardNumber, int expiryDate, int cvv) :base(amount, currency, paymentGateway)
+        public CreditCard(double amount, string currency, string paymentGateway, long cardNumber, string expiryDate, int cvv) :base(amount, currency, paymentGateway)
         {
             CardNumber = cardNumber;
             ExpiryDate = expiryDate;
@@ -30,7 +30,7 @@
             {
                 throw new ArgumentOutOfRangeException(nameof(ExpiryDate), "Expiry Date must be four digits long (MMYY)");
             }
-            if (CVV.ToString().Length > 16)
+            if (CVV.ToString().Length != 3)
             {
                 throw new ArgumentOutOfRangeException(nameof(CVV), "cvv must be 3 digits long");
             }

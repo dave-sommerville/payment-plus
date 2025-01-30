@@ -11,11 +11,7 @@ namespace PaymentPlus
         public override void ValidatePayment()
         {
             base.ValidatePayment();
-            if (EndsWithZero(Amount))
-            {
-                throw new ArgumentOutOfRangeException(nameof(Amount), "Online payments must be whole dollars (end with 00)");
-            }
-            if (Amount < 0)
+            if (Amount < 5)
             {
                 throw new ArgumentOutOfRangeException(nameof(Amount), "Online payments must exceed $5.00");
             }
